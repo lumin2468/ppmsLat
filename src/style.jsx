@@ -1,8 +1,11 @@
 export default {
     colors: {
-      primary: '#FF0000',
-      secondary: '#00FF00',
+      primary: '#fff',
+      secondary: '#764abc',
       background: '#eb8153',
+      lightAccent: 'rgba(235, 129, 83,0.6)',
+      grey: '#7e7e7e',
+      deepAccent:'#d85319'
     },
     typography: {
       fontFamily: 'Roboto',

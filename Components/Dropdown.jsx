@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { Button, Menu, Divider, PaperProvider } from 'react-native-paper';
 
-const MyComponent = () => {
+const Dropdown = () => {
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
@@ -31,4 +31,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default Dropdown;
