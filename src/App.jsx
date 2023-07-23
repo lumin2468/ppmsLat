@@ -8,6 +8,7 @@ import Dashboard from './screens/Dashboard';
 import PendingList from './screens/PendingList';
 import DetailedView from './screens/DetailedView';
 import { PaperProvider } from 'react-native-paper';
+import CameraScreen from './components/Camrea';
 
 
 
@@ -16,6 +17,7 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
+ 
     <NavigationContainer>
       <PaperProvider>
       <Stack.Navigator screenOptions={{headerShown:false}} >
@@ -25,9 +27,11 @@ const App = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="PendingList" component={PendingList} />
         <Stack.Screen name="DetailedView" component={DetailedView} />
+        
       </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>
+
   );
 };
 

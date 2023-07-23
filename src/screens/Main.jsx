@@ -39,7 +39,7 @@ const Main = ({ navigation }) => {
         </View>
         {/* ---------Text----------- */}
         <View style={{position:'absolute', top:width/2,}}>
-            <Text style={{fontSize:22, textAlign:'center', color:style.colors.primary, paddingHorizontal:25, paddingVertical:2, fontWeight:'bold', textShadowColor:'#000000',textShadowRadius:12}}>Panchayatraj Project Management System</Text>
+            <Text style={{fontSize:22, textAlign:'center', color:style.colors.primary, paddingHorizontal:20, paddingVertical:2, fontWeight:'bold', textShadowColor:'#000000',textShadowRadius:12}}>Panchayatraj Project Management System</Text>
         </View>
      {/* ------------Button---------- */}
      <View style={{marginBottom:100}}>
