@@ -7,8 +7,7 @@ import OtpVerify from  './screens/Otpverify';
 import Dashboard from './screens/Dashboard';
 import PendingList from './screens/PendingList';
 import DetailedView from './screens/DetailedView';
-import { PaperProvider } from 'react-native-paper';
-import CameraScreen from './components/Camrea';
+
 
 
 
@@ -19,7 +18,7 @@ const App = () => {
   return (
  
     <NavigationContainer>
-      <PaperProvider>
+      
       <Stack.Navigator screenOptions={{headerShown:false}} >
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Login" component={Login} />
@@ -29,7 +28,7 @@ const App = () => {
         <Stack.Screen name="DetailedView" component={DetailedView} />
         
       </Stack.Navigator>
-      </PaperProvider>
+      
     </NavigationContainer>
 
   );

@@ -4,7 +4,7 @@ import style from '../style';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Button } from 'react-native-paper';
+
 
 
 // import {Dropdown} from 'react-native-element-dropdown'
