@@ -1,4 +1,4 @@
-import { View, Text, Pressable,Image, Dimensions } from 'react-native'
+import { View, Text, Pressable,Image, Dimensions,TouchableOpacity } from 'react-native'
 import React,{useEffect} from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import style from '../style';
@@ -43,22 +43,22 @@ const Main = ({ navigation }) => {
         </View>
      {/* ------------Button---------- */}
      <View style={{marginBottom:100}}>
-      <View style={{ shadowColor: "#000000",
+      <TouchableOpacity style={{ shadowColor: "#000000",
         shadowOffset: {
         width: 0,
         height: 5,
         },
         shadowOpacity:  0.20,
         shadowRadius: 5.62,
-        elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}>
-        <Pressable onPress={()=>navigation.navigate('Login')} >
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Go to Login</Text>
-            <Icon name='arrow-forward-circle' color={'white'} size={25} />
-            </View>
+        elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}
+         onPress={()=>navigation.navigate('Login')} >
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+        <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Go to Login</Text>
+        <Icon name='arrow-forward-circle' color={'white'} size={25} />
+        </View>
             
-        </Pressable>
-      </View>
+        
+      </TouchableOpacity>
       </View>
       </LinearGradient>
     

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { View, StyleSheet,Image,Dimensions, Text, TextInput,Pressable, KeyboardAvoidingView,Keyboard, Modal} from 'react-native';
+import { View, StyleSheet,Image,Dimensions, Text, TextInput,Pressable, KeyboardAvoidingView,Keyboard, Modal, TouchableOpacity} from 'react-native';
 import style from '../style';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // import {Dropdown} from 'react-native-element-dropdown'
@@ -16,14 +17,46 @@ const OtpVerify = ({navigation, route}) => {
   // const [value, setValue] = React.useState(null);
   const [focus, setFocus] = React.useState(false);
   const{width, height} = Dimensions.get('screen')
-  const [otp, setOTP] = React.useState(['', '', '', '', '', '']);
-  const [timer, setTimer] = React.useState(45);
+  const [otp, setOTP] = React.useState(['', '', '', '', '',]);
+  const [timer, setTimer] = React.useState(60);
   const[showSucess,setShowSuccess]=React.useState(false)
   const[showFail,setShowFail]=React.useState(false)
-  const [showModal, setShowModal]=React.useState(true)
+  const [showModal, setShowModal]=React.useState(false)
   const inputRefs = React.useRef([]);
   const [isTimerRunning, setIsTimerRunning] =React.useState(false);
   const mobile=route.params.mobileNo
+  const baseUrl = "http://203.193.144.19/ppms/api";
+  const [data,setData] = React.useState()
+  console.log(otp.join(''))
+  async function fetchLogin() {
+    try {
+      const endpoint = `${baseUrl}/user-login`;
+  
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: mobile,
+          otp:`${otp.join('')}`,
+        }),
+      });
+  
+      const data = await response.json();
+      if (data.code===1000) {
+        console.log("Login Response:", data);
+        await AsyncStorage.setItem('auth_token',data.token);
+        setData(data);
+        navigation.navigate('Dashboard',{token:data.token})
+      } else {
+        console.error("Failed to fetch Login. Status:", response.status);
+        setShowModal(true)
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   const handleOTPChange = (value, index) => {
     const updatedOTP = [...otp];
@@ -38,7 +71,7 @@ const OtpVerify = ({navigation, route}) => {
   const handleResend = () => {
     // Implement your resend logic here
     console.log('Resend OTP');
-    setTimer(45);
+    setTimer(60);
     setIsTimerRunning(true);
   };
 
@@ -80,7 +113,7 @@ const OtpVerify = ({navigation, route}) => {
       <Text style={{paddingVertical:10, fontSize:22,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.primary, fontWeight:700, textShadowColor:'#000000',textShadowRadius:12}}>Panchayati Raj Project Management System</Text>
       </View>
       <Text style={styles.title}>Enter Code</Text>
-      <Text style={styles.subTitle}>{`A six digit code has been sent to \n `}<Text style={[styles.subTitle,{color:style.colors.deepAccent}]}>{`+91-******${(mobile.slice(6))}`}</Text></Text>
+      <Text style={styles.subTitle}>{`A five digit code has been sent to \n `}<Text style={[styles.subTitle,{color:style.colors.deepAccent}]}>{`+91-******${(mobile.slice(6))}`}</Text></Text>
 
       <View style={styles.inputContainer}>
         
@@ -100,6 +133,19 @@ const OtpVerify = ({navigation, route}) => {
             
           />
         ))}
+        </View>
+        <View style={{flexDirection:'row', width:width*0.7, justifyContent:"space-between"}}>
+        <Pressable style={styles.linkButton} onPress={clearOTP}>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+            <Text style={styles.linkText2}> Reset OTP</Text>
+            </View>
+        </Pressable>
+        <Pressable style={styles.linkButton} onPress={()=>navigation.goBack()}>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+            <Text style={styles.linkText2}> Change Mobile </Text>
+            </View>
+        </Pressable>
+
         </View>
         <View style={styles.resend}>
       {isTimerRunning ? (
@@ -123,7 +169,7 @@ const OtpVerify = ({navigation, route}) => {
           <View style={styles.modal}>
             <AntDesign name='closecircle' color={'tomato'} size={50}/>
           <Text style={{fontSize:25}}>Failed!</Text>
-          <Text>{`Oops Account verification failed !!!`}</Text>
+          <Text>{`Oops Account verification failed please check mobile no. !!!`}</Text>
           <Pressable onPress={()=>setShowModal(false)}>
           <View style={styles.errorModal}>
             <Text>Try Again</Text>
@@ -149,30 +195,27 @@ const OtpVerify = ({navigation, route}) => {
           </View>
           </View>}
       </Modal>
-        <Pressable style={styles.linkButton} onPress={clearOTP}>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Text style={{fontSize:12, color:'gray'}}>Do you want to Reset?</Text>
-            <Text style={styles.linkText}> Reset</Text>
-            </View>
-        </Pressable>
+       
        {/* ------------Button---------- */}
      <View style={{marginBottom:100}}>
-      <View style={{ shadowColor: "#000000",
+      <TouchableOpacity style={{ shadowColor: "#000000",
         shadowOffset: {
         width: 0,
         height: 5,
         },
         shadowOpacity:  0.20,
         shadowRadius: 5.62,
-        elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}>
-        <Pressable onPress={()=>navigation.navigate('Dashboard')} >
+        elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}
+        onPress={()=>{
+          fetchLogin()
+          
+          }} >
             <View style={{flexDirection:'row', alignItems:'center'}}>
             <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Verify</Text>
             <Ionicons name='arrow-forward-circle' color={'white'} size={25} />
             </View>
             
-        </Pressable>
-      </View>
+        </TouchableOpacity>
       </View>
       </Pressable>
    </LinearGradient>
@@ -211,7 +254,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     width: '70%',
     marginBottom: 20,
     
@@ -247,7 +291,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   linkButton: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     
   },
@@ -256,6 +300,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textDecorationLine: 'underline',
+  },
+  linkText2: {
+    color: style.colors.primary,
+    fontSize: 12,
+    fontWeight: 'bold',
+    borderWidth: 1,
+    borderColor:style.colors.grey,
+    borderRadius:5,
+    backgroundColor:style.colors.grey,
+    paddingHorizontal:10,
+    paddingVertical:10,
+    shadowColor: "#000000",
+shadowOffset: {
+  width: 0,
+  height: 4,
+},
+shadowOpacity:  0.19,
+shadowRadius: 5.62,
+elevation: 6
+
   },
   timerText: {
     fontSize: 16,

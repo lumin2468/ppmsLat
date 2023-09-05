@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet,Image,Dimensions, Text, TextInput,Pressable, KeyboardAvoidingView,Keyboard, Alert} from 'react-native';
+import { View, StyleSheet,Image,Dimensions, Text, TextInput,Pressable, KeyboardAvoidingView,Keyboard, Alert, TouchableOpacity} from 'react-native';
 import style from '../style';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -17,10 +17,39 @@ const Login = ({navigation}) => {
   const [mobile, setMobile]=React.useState("")
   const [focus, setFocus] = React.useState('');
   const{width, height} = Dimensions.get('screen')
+  // const baseUrl = "http://203.193.144.19/ppms/api";
+  
+  
+  async function fetchLoginOTP() {
+    try {
+      const endpoint = `http://203.193.144.19/ppms/api/login-otp-send?phone=${mobile}`;
+  
+      const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login OTP Response:", data);
+      } else {
+        console.error("Failed to fetch Login OTP. Status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  
+
+  
  
   const handleOtpLogin=()=>{
     if(mobile.length===10){
+      fetchLoginOTP();
       navigation.navigate('OtpVerify',{mobileNo:mobile})
+      setMobile("")
     }else{
       Alert.alert('Something went wrong...', 'Please check your mobile no.', [
         {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -42,6 +71,7 @@ const Login = ({navigation}) => {
         placeholder='Enter registered mobile no.'
         keyboardType='numeric'
         maxLength={10}
+        value={mobile}
         onChangeText={(text) => setMobile(text)}
         onFocus={()=>setFocus(true)}
         onBlur={()=>setFocus(false)}
@@ -50,22 +80,22 @@ const Login = ({navigation}) => {
     </KeyboardAvoidingView >
     {/* ------------Button---------- */}
     <View style={{marginBottom:100}}>
-      <View style={{ shadowColor: "#000000",
+      <TouchableOpacity style={{ shadowColor: "#000000",
         shadowOffset: {
         width: 0,
         height: 5,
         },
         shadowOpacity:  0.20,
         shadowRadius: 5.62,
-        elevation: 7,backgroundColor:style.colors.background, width:width-80, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:12, alignSelf:'center',marginTop:15 }}>
-        <Pressable onPress={handleOtpLogin}>
+        elevation: 7,backgroundColor:style.colors.background, width:width-80, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:12, alignSelf:'center',marginTop:15 }}
+        onPress={handleOtpLogin}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
             <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Login</Text>
             <Ionicons name='arrow-forward-circle' color={'white'} size={25} />
             </View>
             
-        </Pressable>
-      </View>
+      </TouchableOpacity>
+      
       </View>
    </LinearGradient>
    </Pressable>

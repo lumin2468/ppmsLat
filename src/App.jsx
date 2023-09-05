@@ -7,6 +7,9 @@ import OtpVerify from  './screens/Otpverify';
 import Dashboard from './screens/Dashboard';
 import PendingList from './screens/PendingList';
 import DetailedView from './screens/DetailedView';
+import CameraScreen from './components/Camrea';
+import { ApiProvider } from './components/apiContext';
+import SplashScreen from 'react-native-splash-screen';
 
 
 
@@ -15,8 +18,11 @@ import DetailedView from './screens/DetailedView';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  React.useEffect(()=>{
+    SplashScreen.hide();
+  },[]);
   return (
- 
+    <ApiProvider>
     <NavigationContainer>
       
       <Stack.Navigator screenOptions={{headerShown:false}} >
@@ -26,10 +32,12 @@ const App = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="PendingList" component={PendingList} />
         <Stack.Screen name="DetailedView" component={DetailedView} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} />
         
       </Stack.Navigator>
       
     </NavigationContainer>
+    </ApiProvider>
 
   );
 };
