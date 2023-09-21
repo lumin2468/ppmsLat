@@ -17,8 +17,11 @@ import style from '../style';
 import LinearGradient from 'react-native-linear-gradient';
 import Geolocation from 'react-native-geolocation-service';
 import LoactionScreen from '../components/Location';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Success from '../components/Modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DetailedView = ({route, navigation}) => {
   const [capturedImage, setCapturedImage] = React.useState('');
@@ -31,6 +34,11 @@ const DetailedView = ({route, navigation}) => {
   const baseUrl = "http://203.193.144.19/ppms/api";
   const token = "your_bearer_token";
   console.log(data)
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('auth_token');
+    navigation.navigate('Login');
+  };
+
   let imgData;
   if (route.params.imgData) {
     imgData = route.params.imgData;
@@ -55,7 +63,7 @@ const DetailedView = ({route, navigation}) => {
           type: "image/jpeg", // You can change the file type as needed
         });
       });
-  
+      
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
@@ -104,27 +112,68 @@ const DetailedView = ({route, navigation}) => {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       locations={[0, 1]}
-      colors={[style.colors.lightAccent, '#fff']}>
+      colors={[style.colors.secondary, '#fff']}>
       <View
         style={{
-          flex: 0.2,
-          justifyContent: 'center',
+          width: width,
+          paddingHorizontal: 15,
+          marginBottom: 15,
+          flexDirection: 'row',
           alignItems: 'center',
-          backgroundColor: style.colors.background,
-          borderBottomEndRadius: 75,
-          zIndex: 1,
+          justifyContent:'space-between'
         }}>
+        <View style={{flexDirection:'row', alignItems:'center', gap:5}}>
+       
+        <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
+          <Image
+            source={require('../../assets/logo.png')}
+            style={{height: 40, width: 35}}
+          />
+          <Text style={{color:style.colors.background, fontSize:22,textShadowColor:style.colors.grey,
+            textShadowOffset: {
+              width: 1,
+              height: 1.3,
+            },
+            textShadowRadius:3,}}>PPMS</Text>
+        </View>
+        </View>
+        {/* ---------------------- */}
+        
+        {/* ----------------         */}
+        
+        <View>
+          <TouchableOpacity onPress={handleLogout}>
+            <FontAwesome name="power-off" size={25} color={style.colors.background} />
+          </TouchableOpacity>
+        </View>
+       
+      </View>
+      <View
+        style={{
+          flex: 0.08,
+          width:width-20,
+          flexDirection:'row',
+          alignSelf:'center',
+          borderRadius:10,
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          paddingHorizontal:10
+        }}>
+        <View>
         <Text
           style={{
-            fontSize: 35,
-            color: style.colors.primary,
-            fontWeight: 'bold',
-            letterSpacing: 1,
-            textShadowRadius: 20,
-            textShadowColor: '#000',
+            fontSize: 22,
+            color: style.colors.background,
+            
           }}>
-          Detailed View
+        Update Project Status
         </Text>
+        </View>
+        <View>
+        <TouchableOpacity onPress={()=>navigation.goBack()}>
+          <AntDesign name="back" size={25} color={style.colors.background} />
+        </TouchableOpacity>
+        </View>
       </View>
       <View style={{flex: 1}}>
         <ScrollView showsHorizontalScrollIndicator={false}>
@@ -133,7 +182,7 @@ const DetailedView = ({route, navigation}) => {
               style={{
                 flexDirection: 'row',
                 borderWidth: 1,
-                borderColor: style.colors.grey,
+                borderColor: style.colors.lightAccent,
                 width: '90%',
                 alignSelf: 'center',
                 borderRadius: 10,
@@ -141,7 +190,7 @@ const DetailedView = ({route, navigation}) => {
               <View
                 style={{
                   alignItems: 'flex-start',
-                  backgroundColor: style.colors.grey,
+                  backgroundColor: style.colors.lightAccent,
                   width: width / 3.5,
                   paddingVertical: 18,
                   paddingHorizontal: 5,
@@ -166,7 +215,7 @@ const DetailedView = ({route, navigation}) => {
               style={{
                 flexDirection: 'row',
                 borderWidth: 1,
-                borderColor: style.colors.grey,
+                borderColor: style.colors.lightAccent,
                 width: '90%',
                 alignSelf: 'center',
                 borderRadius: 10,
@@ -175,7 +224,7 @@ const DetailedView = ({route, navigation}) => {
                 style={{
                   alignItems: 'flex-start',
                   flexWrap: 'nowrap',
-                  backgroundColor: style.colors.grey,
+                  backgroundColor: style.colors.lightAccent,
                   width: width / 3.5,
                   paddingVertical: 18,
                   paddingHorizontal: 5,
@@ -201,7 +250,7 @@ const DetailedView = ({route, navigation}) => {
               style={{
                 flexDirection: 'row',
                 borderWidth: 1,
-                borderColor: style.colors.grey,
+                borderColor: style.colors.lightAccent,
                 width: '90%',
                 alignSelf: 'center',
                 borderRadius: 10,
@@ -209,7 +258,7 @@ const DetailedView = ({route, navigation}) => {
               <View
                 style={{
                   alignItems: 'flex-start',
-                  backgroundColor: style.colors.grey,
+                  backgroundColor: style.colors.lightAccent,
                   width: width / 3.5,
                   paddingVertical: 18,
                   paddingHorizontal: 5,
@@ -232,7 +281,7 @@ const DetailedView = ({route, navigation}) => {
               style={{
                 flexDirection: 'row',
                 borderWidth: 1,
-                borderColor: style.colors.grey,
+                borderColor: style.colors.lightAccent,
                 width: '90%',
                 alignSelf: 'center',
                 borderRadius: 10,
@@ -240,7 +289,7 @@ const DetailedView = ({route, navigation}) => {
               <View
                 style={{
                   alignItems: 'flex-start',
-                  backgroundColor: style.colors.grey,
+                  backgroundColor: style.colors.lightAccent,
                   width: width / 3.5,
                   paddingVertical: 18,
                   paddingHorizontal: 5,
@@ -265,7 +314,7 @@ const DetailedView = ({route, navigation}) => {
               style={{
                 flexDirection: 'row',
                 borderWidth: 1,
-                borderColor: style.colors.grey,
+                borderColor: style.colors.lightAccent,
                 width: '90%',
                 alignSelf: 'center',
                 borderRadius: 10,
@@ -273,7 +322,7 @@ const DetailedView = ({route, navigation}) => {
               <View
                 style={{
                   alignItems: 'flex-start',
-                  backgroundColor: style.colors.grey,
+                  backgroundColor: style.colors.lightAccent,
                   width: width / 3.5,
                   paddingVertical: 18,
                   paddingHorizontal: 5,
@@ -301,7 +350,7 @@ const DetailedView = ({route, navigation}) => {
                 backgroundColor: style.colors.lightAccent,
                 height: 50,
                 borderWidth: 1,
-                borderColor: style.colors.grey,
+                borderColor: style.colors.primary,
                 alignSelf: 'center',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -321,7 +370,7 @@ const DetailedView = ({route, navigation}) => {
             <>
               <View
                 style={{
-                  backgroundColor: style.colors.grey,
+                  backgroundColor: style.colors.lightAccent,
                   paddingHorizontal: 10,
                   paddingVertical: 2,
                   width: width / 2,
@@ -416,7 +465,7 @@ const DetailedView = ({route, navigation}) => {
           <View style={{height: 50}} />
           <View style={{marginBottom: 100}}>
             {showSuccessModal && <Success handlePress={navigation} />}
-            <TouchableOpacity
+            {imgData && <TouchableOpacity
               style={{
                 shadowColor: '#000000',
                 shadowOffset: {
@@ -426,7 +475,7 @@ const DetailedView = ({route, navigation}) => {
                 shadowOpacity: 0.2,
                 shadowRadius: 5.62,
                 elevation: 7,
-                backgroundColor: style.colors.background,
+                backgroundColor: style.colors.lightAccent,
                 width: width / 1.5,
                 alignItems: 'center',
                 borderRadius: 15,
@@ -454,7 +503,7 @@ const DetailedView = ({route, navigation}) => {
                   size={25}
                 />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </ScrollView>
       </View>

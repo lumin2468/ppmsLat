@@ -106,14 +106,14 @@ const OtpVerify = ({navigation, route}) => {
   return (
     <>
         
-    <LinearGradient style={{flex:1, alignItems:'center'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.lightAccent,'#fff']} >
+    <LinearGradient style={{flex:1, alignItems:'center'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.secondary,'#fff']} >
     <Pressable style={{alignItems:'center'}} onPress={()=>Keyboard.dismiss()}>
     <View style={{alignItems:'center', justifyContent:'flex-start', paddingTop:50, paddingBottom:30}}>
       <Image source={require('../../assets/logo.png')} style={{height:120, width:110}} />
       <Text style={{paddingVertical:10, fontSize:22,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.primary, fontWeight:700, textShadowColor:'#000000',textShadowRadius:12}}>Panchayati Raj Project Management System</Text>
       </View>
       <Text style={styles.title}>Enter Code</Text>
-      <Text style={styles.subTitle}>{`A five digit code has been sent to \n `}<Text style={[styles.subTitle,{color:style.colors.deepAccent}]}>{`+91-******${(mobile.slice(6))}`}</Text></Text>
+      <Text style={styles.subTitle}>{`A five digit code has been sent to \n `}<Text style={[styles.subTitle,{color:style.colors.lightAccent}]}>{`+91-******${(mobile.slice(6))}`}</Text></Text>
 
       <View style={styles.inputContainer}>
         
@@ -205,7 +205,7 @@ const OtpVerify = ({navigation, route}) => {
         },
         shadowOpacity:  0.20,
         shadowRadius: 5.62,
-        elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}
+        elevation: 7,backgroundColor:style.colors.lightAccent, width:width/2, alignItems:'center', borderRadius:10, paddingHorizontal:3, paddingVertical:10, alignSelf:'center',borderWidth:1,borderColor:style.colors.primary }}
         onPress={()=>{
           fetchLogin()
           
@@ -238,12 +238,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '500',
     letterSpacing:1,
-    color:style.colors.deepAccent,
+    color:style.colors.lightAccent,
     marginBottom: 15,
     textDecorationLine:'underline',
     textDecorationColor:style.colors.grey,
-    textShadowRadius:6,
-    textShadowColor: style.colors.background
+   
   },
   subTitle:{
     fontSize: 14,
@@ -296,7 +295,7 @@ const styles = StyleSheet.create({
     
   },
   linkText: {
-    color: style.colors.background,
+    color: style.colors.lightAccent,
     fontSize: 16,
     fontWeight: 'bold',
     textDecorationLine: 'underline',
@@ -306,9 +305,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     borderWidth: 1,
-    borderColor:style.colors.grey,
+    borderColor:style.colors.primary,
     borderRadius:5,
-    backgroundColor:style.colors.grey,
+    backgroundColor:style.colors.lightAccent,
     paddingHorizontal:10,
     paddingVertical:10,
     shadowColor: "#000000",

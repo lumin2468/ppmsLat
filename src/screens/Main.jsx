@@ -14,7 +14,7 @@ const Main = ({ navigation }) => {
     },10000)
    },[])
   return (
-    <LinearGradient style={{flex:1, justifyContent:'space-between'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.lightAccent,'#fff']} >
+    <LinearGradient style={{flex:1, justifyContent:'space-between'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.secondary,'#fff']} >
         <View style={{flex:.6,position:'relative', backgroundColor:style.colors.lightAccent, borderBottomRightRadius:width/3, borderBottomLeftRadius:width/3, shadowColor: "#000000",
         shadowOffset: {
         width: 0,
@@ -50,7 +50,7 @@ const Main = ({ navigation }) => {
         },
         shadowOpacity:  0.20,
         shadowRadius: 5.62,
-        elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}
+        elevation: 7,backgroundColor:style.colors.lightAccent, width:width/1.5, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}
          onPress={()=>navigation.navigate('Login')} >
         <View style={{flexDirection:'row', alignItems:'center'}}>
         <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Go to Login</Text>

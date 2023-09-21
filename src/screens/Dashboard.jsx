@@ -8,28 +8,32 @@ import {
   Pressable,
   ActivityIndicator,
   TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React from 'react';
 import DashbdCards from '../components/DashbdCards';
 import LinearGradient from 'react-native-linear-gradient';
 import style from '../style';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useApi } from '../components/apiContext';
+import {useApi} from '../components/apiContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Dashboard = ({navigation,route}) => {
+const Dashboard = ({navigation, route}) => {
   const {width, height} = Dimensions.get('screen');
+ 
   // const [projectDetails,setProjectDetails]=React.useState([])
-  const baseUrl = "http://203.193.144.19/ppms/api";
-  let recentProjects=[]
-  const { projectDetails, userDetail, fetchLoggedInUser,fetchProjectList } = useApi();
-  console.log(`PROOOO`,projectDetails)
+  const baseUrl = 'http://203.193.144.19/ppms/api';
+  let recentProjects = [];
+  const {projectDetails, userDetail, fetchLoggedInUser, fetchProjectList} =
+    useApi();
+  console.log(`PROOOO`, projectDetails);
   if (projectDetails && projectDetails.data && projectDetails.data.length > 0) {
-   recentProjects = projectDetails.data.slice(0, 4);
+    recentProjects = projectDetails.data.slice(0, 4);
   }
-  
 
   React.useEffect(() => {
     async function getTokenAndFetchData() {
@@ -45,18 +49,21 @@ const Dashboard = ({navigation,route}) => {
     }
 
     getTokenAndFetchData();
-  },[])
-  const handleLogout=async()=>{
+  }, []);
+  const handleLogout = async () => {
     await AsyncStorage.removeItem('auth_token');
     navigation.navigate('Login');
-  }
+  };
   return (
+
+    
     <LinearGradient
       style={{flex: 1, alignItems: 'center', paddingTop: 25}}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       locations={[0, 1]}
-      colors={[style.colors.lightAccent, style.colors.primary]}>
+      colors={[style.colors.secondary, style.colors.primary]}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={'-320'}>
       <View
         style={{
           width: width,
@@ -64,98 +71,82 @@ const Dashboard = ({navigation,route}) => {
           marginBottom: 15,
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent:'space-between'
         }}>
-        <View>
-          <TouchableOpacity>
-            <View
-              style={{
-                width: 12,
-                height: 12,
-                borderRadius: 6,
-                backgroundColor: style.colors.deepAccent,
-                position: 'absolute',
-                top: 3,
-                left: -1,
-                zIndex: 1,
-              }}
-            />
-            <Fontisto name="bell" size={25} color={style.colors.primary} />
-          </TouchableOpacity>
+        <View style={{flexDirection:'row', alignItems:'center', gap:5}}>
+       
+        <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
+          <Image
+            source={require('../../assets/logo.png')}
+            style={{height: 40, width: 35}}
+          />
+          <Text style={{color:style.colors.background, fontSize:22,textShadowColor:style.colors.grey,
+            textShadowOffset: {
+              width: 1,
+              height: 1.3,
+            },
+            textShadowRadius:3,}}>PPMS</Text>
         </View>
+        </View>
+        {/* ---------------------- */}
+        
+        {/* ----------------         */}
+        
         <View>
           <TouchableOpacity onPress={handleLogout}>
-            <AntDesign name="poweroff" size={23} color={style.colors.primary} />
+            <FontAwesome name="power-off" size={25} color={style.colors.background} />
           </TouchableOpacity>
         </View>
+       
       </View>
       {/* ---------------------------------  */}
       <View>
         <View
           style={{
-            flex: 0.3,
-            alignSelf: 'center',
+            flex: 0.06,
+            alignSelf:'center',
+            justifyContent:'space-between',
+            alignItems:'center',
             flexDirection: 'row',
-            alignItems: 'center',
+            paddingTop:5,
+            paddingHorizontal:5,
             width: width - 20,
-            backgroundColor: style.colors.background,
-            borderRadius: 20,
-            marginBottom: 20,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 4,
-            },
-            shadowOpacity: 0.3,
-            shadowRadius: 4.65,
-
-            elevation: 8,
+            marginBottom: 10,
+            borderRadius:10,
+            backgroundColor:style.colors.lightAccent,
           }}>
-          <View
-            style={{
-              backgroundColor: style.colors.primary,
-              width: 80,
-              height: 80,
-              borderRadius: 40,
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: 10,
-            }}>
-            <Image
-              source={require('../../assets/avatar.png')}
-              style={{width: 50, height: 50}}
-            />
-          </View>
-          <View style={{paddingLeft:20}} >
-            <View style={{flexDirection:'column', alignItems:'center'}}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 22,
-                fontWeight: '700',
-                color: style.colors.primary,
-              }}>{`Welcome Back!!!`} </Text>
-              <Text style={{
-                textAlign: 'center',
-                fontSize: 20,
-                fontWeight: '700',
-                marginBottom:10,
-                color: style.colors.primary,
-              }}>{userDetail?.name}</Text>
-              </View>
-              <View style={{flexDirection:'row', alignItems:'center',
-                 gap:3,alignSelf:'flex-end', marginLeft:70}}>
-              <Ionicons name='location' color={'white'} size={25} />
+            <View>
               <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '700',
+                  marginBottom: 10,
+                  color: style.colors.primary,
+                }}>
+                Welcome {userDetail?.name}
+              </Text>
+            </View>
+              <View
               style={{
-                textAlign:'left',
-                fontSize: 16,
-                fontWeight: '500',
-                color: style.colors.primary,
-                
-              }}>{`${userDetail?.block}`}</Text>
-              </View>
-          </View>
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 3,
+                alignSelf: 'flex-start',
+              }}>
+              <Ionicons name="location" color={style.colors.primary} size={16} />
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 14,
+                  fontWeight: '500',
+                  color: style.colors.primary,
+                }}>{`${userDetail?.block}`}</Text>
+            
+            </View>
+           
+            
+          
         </View>
         {/* --------------------------------------------- */}
         <DashbdCards />
@@ -164,94 +155,133 @@ const Dashboard = ({navigation,route}) => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{position: 'absolute', alignSelf: 'center'}}>
           <View
-            
             style={{
               alignItems: 'center',
               gap: 20,
               alignSelf: 'center',
               padding: 10,
             }}>
-            {recentProjects? recentProjects?.map((project, index) => (
-              <View
-                key={index}
-                style={{
-                  backgroundColor: 'white',
-                  flex: 0.5,
-                  flexDirection: 'row',
-                  width: width - 40,
-                  height: height / 8,
-                  borderRadius: 20,
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                  padding: 10,
-                  gap: 10,
-                }}
-              >
-                <View style={{ paddingVertical: 5 }}>
-                  <Image
-                    source={require('../../assets/pjList.png')}
-                    style={{ borderWidth: 3, borderColor: style.colors.background }}
-                  ></Image>
+            {recentProjects ? (
+              recentProjects?.map((project, index) => (
+                <View
+                  key={index}
+                  style={{
+                    backgroundColor: 'white',
+                    flex: 0.5,
+                    flexDirection: 'row',
+                    width: width - 20,
+                    height: height / 8,
+                    borderRadius: 20,
+                    justifyContent: 'center',
+                    alignItems:'center',
+                    padding: 8,
+                    gap: 10,
+                    shadowColor: "#000000",
+                    shadowOffset: {
+                    width: 0,
+                    height: 10,
+                  },
+                  shadowOpacity:  0.23,
+                  shadowRadius: 11.27,
+                  elevation: 14
+                  }}>
+                  <View style={{paddingVertical: 5}}>
+                    <Image
+                      source={require('../../assets/project3.jpg')}
+                      style={{width: 80, height: 80}}
+                     ></Image>
+                  </View>
+                  <View style={{gap: 3}}>
+                    <Text
+                      style={{
+                        width: width - 150,
+                        textAlign: 'justify',
+                        paddingHorizontal: 5,
+                        fontWeight: 'bold',
+                        color: style.colors.lightAccent,
+                      }}>
+                      Project Name:{' '}
+                      <Text style={{color: style.colors.grey}}>
+                        {project?.name}
+                      </Text>
+                    </Text>
+                    <Text
+                      style={{
+                        width: width - 150,
+                        textAlign: 'justify',
+                        paddingHorizontal: 5,
+                        fontWeight: 'bold',
+                        color: style.colors.lightAccent,
+                      }}>
+                      Category:{' '}
+                      <Text style={{color: style.colors.grey}}>
+                        {project?.category}
+                      </Text>
+                    </Text>
+                    <Text
+                      style={{
+                        width: width - 150,
+                        textAlign: 'justify',
+                        paddingHorizontal: 5,
+                        fontWeight: 'bold',
+                        color: style.colors.lightAccent,
+                      }}>
+                      Estimation:{' '}
+                      <Text style={{color: style.colors.grey}}>
+                      ₹{project?.estimated}
+                      </Text>
+                    </Text>
+                  </View>
                 </View>
-                <View style={{ gap: 3 }}>
-                  <Text
-                    style={{
-                      width: width - 150,
-                      textAlign: 'justify',
-                      paddingHorizontal: 5,
-                      fontWeight: 'bold',
-                      color: style.colors.background,
-                    }}
-                  >
-                    Project Name: <Text style={{ color: style.colors.grey }}>{project?.name}</Text>
-                  </Text>
-                  <Text
-                    style={{
-                      width: width - 150,
-                      textAlign: 'justify',
-                      paddingHorizontal: 5,
-                      fontWeight: 'bold',
-                      color: style.colors.background,
-                    }}
-                  >
-                    Category: <Text style={{ color: style.colors.grey }}>{project?.category}</Text>
-                  </Text>
-                  <Text
-                    style={{
-                      width: width - 150,
-                      textAlign: 'justify',
-                      paddingHorizontal: 5,
-                      fontWeight: 'bold',
-                      color: style.colors.background,
-                    }}
-                  >
-                    Estimation: <Text style={{ color: style.colors.grey }}>{project?.estimated}</Text>
-                  </Text>
-                </View>
+              ))
+            ) : (
+              <ActivityIndicator />
+            )}
+
+            <TouchableOpacity
+              style={{
+                shadowColor: '#000000',
+                shadowOffset: {
+                  width: 0,
+                  height: 5,
+                },
+                shadowOpacity: 0.2,
+                shadowRadius: 5.62,
+                elevation: 7,
+                backgroundColor: style.colors.lightAccent,
+                width: width / 3,
+                alignItems: 'center',
+                borderRadius: 15,
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                alignSelf: 'center',
+              }}
+              onPress={() =>
+                navigation.navigate('PendingList', {projectDetails})
+              }>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    fontSize: 16,
+                    color: style.colors.primary,
+                    fontWeight: '800',
+                    marginHorizontal: 10,
+                  }}>
+                  Show more
+                </Text>
+                <Ionicons
+                  name="arrow-forward-circle"
+                  color={'white'}
+                  size={25}
+                />
               </View>
-            )):<ActivityIndicator/>
-          }
-            
-            <TouchableOpacity style={{ shadowColor: "#000000",
-              shadowOffset: {
-              width: 0,
-              height: 5,
-              },
-              shadowOpacity:  0.20,
-              shadowRadius: 5.62,
-              elevation: 7,backgroundColor:style.colors.background, width:width/1.5, alignItems:'center', borderRadius:15, paddingHorizontal:10, paddingVertical:15, alignSelf:'center', }}
-              onPress={()=>navigation.navigate('PendingList',{projectDetails})}
-        >
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Show more</Text>
-            <Ionicons name='arrow-forward-circle' color={'white'} size={25} />
-            </View>
-            
-        </TouchableOpacity>
-        <View style={{height: 50}} />
+            </TouchableOpacity>
+            <View style={{height: 50}} />
           </View>
         </ScrollView>
       </View>
+    </KeyboardAvoidingView>
     </LinearGradient>
   );
 };

@@ -59,7 +59,7 @@ const barData = {
 };
 
 const chartConfig={
-  backgroundGradientFrom: style.colors.deepAccent,
+  backgroundGradientFrom: style.colors.lightAccent,
   backgroundGradientFromOpacity: 1,
   backgroundGradientTo: style.colors.primary,
   backgroundGradientToOpacity: 1,
@@ -107,7 +107,7 @@ const DashbdCards = () => {
     yAxisSuffix="Pending"
     yAxisInterval={1} // optional, defaults to 1
     chartConfig={{
-      backgroundGradientFrom: style.colors.deepAccent,
+      backgroundGradientFrom: style.colors.lightAccent,
       backgroundGradientTo:style.colors.primary,
       decimalPlaces: 0, // optional, defaults to 2dp
       color: (opacity = 1) => `rgba(123,123,123,${opacity})`,
@@ -141,7 +141,7 @@ const DashbdCards = () => {
   strokeWidth={15}
   radius={32}
   chartConfig= {{
-    backgroundGradientFrom: style.colors.deepAccent,
+    backgroundGradientFrom: style.colors.lightAccent,
     backgroundGradientFromOpacity: 1,
     backgroundGradientTo: style.colors.primary,
     backgroundGradientToOpacity: 0.5,
@@ -151,7 +151,7 @@ const DashbdCards = () => {
     barPercentage: 0.8,
     useShadowColorFromDataset: false, // optional
     fillShadowGradientToOpacity:1,
-    fillShadowGradientToOffset:0.7,
+    fillShadowGradientToOffset:0.5,
     style:{backgroundGradient:style.colors.background}
   }}
   hideLegend={false}
@@ -171,7 +171,7 @@ const DashbdCards = () => {
   
 />
 </View>
-<LinearGradient style={{flex:1, alignItems:'center', borderRadius:15,paddingRight:10, marginLeft:10 }} start={{ x: 0, y:1 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.deepAccent,style.colors.primary]} >
+<LinearGradient style={{flex:1, alignItems:'center', borderRadius:15,paddingRight:10, marginLeft:10 }} start={{ x: 0, y:1 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.lightAccent,style.colors.primary]} >
 <Text style={{position:'absolute', left:width/4, top:-30, fontWeight:'700', letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey, fontSize:22,zIndex:1}}>Completion Photo</Text>
 <PieChart
   data={pieData}

@@ -60,7 +60,7 @@ const Login = ({navigation}) => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={{flex:1}}>
         
-    <LinearGradient style={{flex:1, alignItems:'center'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.lightAccent,'#fff']} >
+    <LinearGradient style={{flex:1, alignItems:'center'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.secondary,'#fff']} >
     <View style={{alignItems:'center', justifyContent:'flex-start', paddingTop:70, }}>
       <Image source={require('../../assets/logo.png')} style={{height:120, width:110}} />
       <Text style={{paddingVertical:10, fontSize:22,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.primary, fontWeight:700, textShadowColor:'#000000',textShadowRadius:12}}>Panchayati Raj Project Management System</Text>
@@ -87,7 +87,7 @@ const Login = ({navigation}) => {
         },
         shadowOpacity:  0.20,
         shadowRadius: 5.62,
-        elevation: 7,backgroundColor:style.colors.background, width:width-80, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:12, alignSelf:'center',marginTop:15 }}
+        elevation: 7,backgroundColor:style.colors.lightAccent, width:width-80, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:12, alignSelf:'center',marginTop:15 }}
         onPress={handleOtpLogin}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
             <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Login</Text>

@@ -120,7 +120,7 @@ const CameraScreen = ({modal, imgdata, navigation,route}) => {
           start={{x: 0, y: 0}}
           end={{x: 1, y: 1}}
           locations={[0, 1]}
-          colors={[style.colors.lightAccent, style.colors.primary]}>
+          colors={[style.colors.secondary, style.colors.primary]}>
           <View style={{flex: 1, alignItems: 'center'}}>
             <FlatList
               data={capturedImages}
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.19,
     shadowRadius: 5.62,
     elevation: 6,
-    backgroundColor: style.colors.grey,
+    backgroundColor: style.colors.lightAccent,
   },
   buttonText: {
     color: style.colors.primary,
