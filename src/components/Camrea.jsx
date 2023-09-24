@@ -225,9 +225,9 @@ const CameraScreen = ({modal, imgdata, navigation,route}) => {
                 <Text
                   style={{
                     alignSelf: 'center',
-                    fontSize: 22,
+                    fontSize: 18,
                     color: style.colors.primary,
-                    fontWeight: '800',
+                    fontFamily:'Poppins-Light',
                     marginHorizontal: 10,
                   }}>
                   Go to submit
@@ -266,7 +266,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: style.colors.primary,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily:'Poppins-Light',
+    fontSize:12
   },
 });
 

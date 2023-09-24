@@ -50,7 +50,7 @@ const pieData = [
 ];
 
 const barData = {
-  labels: ["January", "February", "March", "April", "May", "June"],
+  labels: ["Jan", "Feb", "Mar", "April", "May", "June"],
   datasets: [
     {
       data: [20, 45, 28, 80, 99, 43]
@@ -83,10 +83,10 @@ const DashbdCards = () => {
   return (
 <View style={{alignItems:'center', flexDirection:'row'}}>
   <ScrollView snapToInterval={width} decelerationRate='fast' bounces={false} horizontal={true} contentContainerStyle={{paddingTop:10, gap:14,paddingRight:10, alignItems:'center',}} showsHorizontalScrollIndicator={false}>
-    <Text style={{position:'absolute', left:width/6,top:-5, fontWeight:'700', letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey, fontSize:22,zIndex:1}}>Before Initiation of photo</Text>
+    <Text style={{position:'absolute', left:width/6,top:-5, letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey,fontFamily:'Poppins-Light', fontSize:18,zIndex:1}}>Before Initiation of photo</Text>
   <LineChart
     data={{
-      labels: ["January", "February", "March", "April", "May", "June"],
+      labels: ["Jan", "Feb", "Mar", "April", "May", "June"],
       datasets: [
         {
           data: [
@@ -113,7 +113,8 @@ const DashbdCards = () => {
       color: (opacity = 1) => `rgba(123,123,123,${opacity})`,
       labelColor: (opacity = 1) =>`rgba(255,255,255,${opacity})`,
       style: {
-        borderRadius: 16
+        borderRadius: 16,
+        
       },
       propsForDots: {
         r: "5",
@@ -129,10 +130,11 @@ const DashbdCards = () => {
       paddingVertical: 10,
       paddingHorizontal:15,
       
+      
     }}
   />
   <View style={{marginRight:12 }}>
-  <Text style={{position:'absolute', left:width/5, top:-35, fontWeight:'700', letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey, fontSize:22,zIndex:1}}>Transparency Pillar</Text>
+  <Text style={{position:'absolute', left:width/5, top:-35, letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey,fontFamily:'Poppins-Light', fontSize:18,zIndex:1}}>Transparency Pillar</Text>
 
   <ProgressChart
   data={prgdata}
@@ -159,7 +161,7 @@ const DashbdCards = () => {
 />
 </View>
 <View>
-<Text style={{position:'absolute', left:width/6, top:-35, fontWeight:'700', letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey, fontSize:22,zIndex:1}}>During Execution Photo</Text>
+<Text style={{position:'absolute', left:width/6, top:-35, letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey,fontFamily:'Poppins-Light', fontSize:18,zIndex:1}}>During Execution Photo</Text>
 
 <BarChart
   data={barData}
@@ -172,7 +174,7 @@ const DashbdCards = () => {
 />
 </View>
 <LinearGradient style={{flex:1, alignItems:'center', borderRadius:15,paddingRight:10, marginLeft:10 }} start={{ x: 0, y:1 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.lightAccent,style.colors.primary]} >
-<Text style={{position:'absolute', left:width/4, top:-30, fontWeight:'700', letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey, fontSize:22,zIndex:1}}>Completion Photo</Text>
+<Text style={{position:'absolute', left:width/4, top:-30,  letterSpacing:0.3,textDecorationLine:'underline', color:style.colors.grey,fontFamily:'Poppins-Light', fontSize:18,zIndex:1}}>Completion Photo</Text>
 <PieChart
   data={pieData}
   width={width-30}

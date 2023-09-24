@@ -32,7 +32,7 @@ const PendingList = ({navigation, route}) => {
     navigation.navigate('Login');
   };
   
-
+console.log(projectDetails)
   // Create an event handler to toggle the `search` state
   const toggleSearch = () => {
     setSearch((prevSearch) => !prevSearch);
@@ -40,7 +40,7 @@ const PendingList = ({navigation, route}) => {
 
   return (
     <LinearGradient
-      style={{flex: 1}}
+    style={{flex: 1}}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       locations={[0, 1]}
@@ -48,20 +48,25 @@ const PendingList = ({navigation, route}) => {
       <View
         style={{
           width: width,
+          paddingTop: 15,
           paddingHorizontal: 15,
           marginBottom: 15,
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent:'space-between'
+          justifyContent:'space-between',
+          borderBottomWidth:10,
+          zIndex:10,
+          backgroundColor:style.colors.primary,
+          borderBottomColor:style.colors.primary
         }}>
         <View style={{flexDirection:'row', alignItems:'center', gap:5}}>
        
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
           <Image
             source={require('../../assets/logo.png')}
-            style={{height: 40, width: 35}}
+            style={{height: 50, width: 45}}
           />
-          <Text style={{color:style.colors.background, fontSize:22,textShadowColor:style.colors.grey,
+          <Text style={{color:style.colors.background,fontFamily:'Poppins-Bold', fontSize:22,textShadowColor:style.colors.grey,
             textShadowOffset: {
               width: 1,
               height: 1.3,
@@ -71,7 +76,7 @@ const PendingList = ({navigation, route}) => {
         </View>
         {/* ---------------------- */}
         <View style={{flexDirection: 'row', alignItems: 'center',gap:5}}>
-          {search && <View style={{
+          {/* {search && <View style={{
                 flexDirection:'row',
                 alignItems:'center',
                 width: 170,
@@ -88,15 +93,15 @@ const PendingList = ({navigation, route}) => {
             style={{padding:5}}
             placeholder='Search'
             />
-            </View>}
+            </View>} */}
 
          
         </View>
         
         <View style={{flexDirection:'row', alignItems:'center', gap:8}}>
-        <TouchableOpacity onPress={toggleSearch}>
+        {/* <TouchableOpacity onPress={toggleSearch}>
           <AntDesign name="search1" size={23} color={style.colors.background} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         <View>
           <TouchableOpacity onPress={handleLogout}>
             <FontAwesome name="power-off" size={25} color={style.colors.background} />
@@ -119,9 +124,10 @@ const PendingList = ({navigation, route}) => {
         <View>
         <Text
           style={{
-            fontSize: 24,
+            fontSize: 20,
             color: style.colors.background,
-            fontWeight:'900',
+            fontFamily:'Poppins-Light',
+            fontWeight:'700'
           }}>
           Project List
         </Text>
@@ -139,9 +145,9 @@ const PendingList = ({navigation, route}) => {
         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         style={{color:style.colors.lightAccent}}
       >
-        <Picker.Item style={{fontSize:20}} label="Select GP Wise" />
-        <Picker.Item label="Option 1" value="option1" />
-        <Picker.Item label="Option 2" value="option2" />
+        <Picker.Item style={{fontSize:16, fontFamily:'Poppins-Light'}} label="Select GP Wise" />
+        <Picker.Item style={{fontSize:14, fontFamily:'Poppins-Light'}} label="Option 1" value="option1" />
+        <Picker.Item style={{fontSize:14, fontFamily:'Poppins-Light'}} label="Option 2" value="option2" />
       </Picker>
      
     </View>

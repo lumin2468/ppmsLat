@@ -63,11 +63,12 @@ const Login = ({navigation}) => {
     <LinearGradient style={{flex:1, alignItems:'center'}} start={{ x: 0, y: 0 }} end={{ x:1 , y:1}} locations={[0, 1]} colors={[ style.colors.secondary,'#fff']} >
     <View style={{alignItems:'center', justifyContent:'flex-start', paddingTop:70, }}>
       <Image source={require('../../assets/logo.png')} style={{height:120, width:110}} />
-      <Text style={{paddingVertical:10, fontSize:22,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.primary, fontWeight:700, textShadowColor:'#000000',textShadowRadius:12}}>Panchayati Raj Project Management System</Text>
+      <Text style={{paddingVertical:10,fontFamily:"Poppins-ExtraBold", fontSize:18,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.lightAccent, fontWeight:'900'}}>Panchayati Raj Project Management System</Text>
       </View>
     <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'padding' : 'height'} style={{flexDirection:'row', borderWidth:1,borderColor:style.colors.grey, width:width-80, alignItems:'center', paddingHorizontal:10,borderRadius:100, marginTop:width/4}} >
         <Icon name='mobile1' size={24}/>
         <TextInput
+        style={{flex:1,fontFamily:'Poppins-Light', fontSize:12}}
         placeholder='Enter registered mobile no.'
         keyboardType='numeric'
         maxLength={10}
@@ -90,7 +91,7 @@ const Login = ({navigation}) => {
         elevation: 7,backgroundColor:style.colors.lightAccent, width:width-80, alignItems:'center', borderRadius:30, paddingHorizontal:10, paddingVertical:12, alignSelf:'center',marginTop:15 }}
         onPress={handleOtpLogin}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Login</Text>
+            <Text style={{alignSelf:'center', fontSize:18,fontFamily:'Poppins-Light', color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Login</Text>
             <Ionicons name='arrow-forward-circle' color={'white'} size={25} />
             </View>
             

@@ -10,6 +10,8 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  Modal,
+  ActivityIndicator,
 } from 'react-native';
 import React from 'react';
 import CameraScreen from '../components/Camrea';
@@ -26,14 +28,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const DetailedView = ({route, navigation}) => {
   const [capturedImage, setCapturedImage] = React.useState('');
   const [locationData, setLocationData] = React.useState({});
-  const [showModal, setShowModal] = React.useState(false);
+  const [loading , setLoading] = React.useState(false);
+  const [token, setToken] = React.useState("")
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
+  React.useEffect(() => {
+    const getTokenAndFetchData=async()=>{
+      authToken = await AsyncStorage.getItem('auth_token');
+      setToken(authToken);
+    }
+    getTokenAndFetchData();
+  }, []);
 
   const {width, height} = Dimensions.get('screen');
   const data = route.params.data;
   const baseUrl = "http://203.193.144.19/ppms/api";
-  const token = "your_bearer_token";
-  console.log(data)
+  
+  console.log(`dasdasdasdas`,data)
   const handleLogout = async () => {
     await AsyncStorage.removeItem('auth_token');
     navigation.navigate('Login');
@@ -47,23 +57,25 @@ const DetailedView = ({route, navigation}) => {
   console.log(`fsdsdfsdfsdssdfsdsffsdsfd`, imgData);
   async function fetchProjectImageUpload(imageData) {
     try {
+      setLoading(true)
+      
       const endpoint = `${baseUrl}/project-image-upload/${data.id}`;
   
       const formData = new FormData();
-  
-      // Append empty arrays for "lat" and "lng"
-      formData.append("lat[]", "");
-      formData.append("lng[]", "");
-  
-      // Append each image file
+      formData.append("type",1)
       imageData.forEach((image, index) => {
+        // Append image
         formData.append(`image[${index}]`, {
           uri: image.uri,
-          name: `image_${index}.jpg`, // You can change the file name as needed
-          type: "image/jpeg", // You can change the file type as needed
+          name: `image_${index}.jpg`,
+          type: "image/jpeg"
         });
-      });
       
+        // Append latitude and longitude
+        formData.append(`lat[${index}]`, image.location.latitude.toString());
+        formData.append(`lng[${index}]`, image.location.longitude.toString());
+      });
+      console.log(`FFFFFRRRRmMMMMMM`,formData);
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
@@ -72,12 +84,18 @@ const DetailedView = ({route, navigation}) => {
         },
         body: formData,
       });
-  
+      console.log(`RESSSSPPPPPPP`,response);
       if (response.ok) {
         const data = await response.json();
         console.log("Project Image Upload Response:", data);
+        setLoading(false)
+        if(data.code===1000){
+          setShowSuccessModal(true)
+          
+        }
       } else {
         console.error("Failed to upload Project Images. Status:", response.status);
+        setLoading(false)
       }
     } catch (error) {
       console.error("Error:", error);
@@ -102,9 +120,7 @@ const DetailedView = ({route, navigation}) => {
     );
   };
 
-  const handleSuccess = value => {
-    setShowSuccessModal(value);
-  };
+ 
 
   return (
     <LinearGradient
@@ -116,20 +132,25 @@ const DetailedView = ({route, navigation}) => {
       <View
         style={{
           width: width,
+          paddingTop: 15,
           paddingHorizontal: 15,
           marginBottom: 15,
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent:'space-between'
+          justifyContent:'space-between',
+          borderBottomWidth:10,
+          zIndex:10,
+          backgroundColor:style.colors.primary,
+          borderBottomColor:style.colors.primary
         }}>
         <View style={{flexDirection:'row', alignItems:'center', gap:5}}>
        
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
           <Image
             source={require('../../assets/logo.png')}
-            style={{height: 40, width: 35}}
+            style={{height: 50, width: 45}}
           />
-          <Text style={{color:style.colors.background, fontSize:22,textShadowColor:style.colors.grey,
+          <Text style={{color:style.colors.background, fontFamily:'Poppins-Bold',fontSize:22,textShadowColor:style.colors.grey,
             textShadowOffset: {
               width: 1,
               height: 1.3,
@@ -162,7 +183,9 @@ const DetailedView = ({route, navigation}) => {
         <View>
         <Text
           style={{
-            fontSize: 22,
+            fontSize: 18,
+            fontFamily:'Poppins-Light',
+            fontWeight:'700',
             color: style.colors.background,
             
           }}>
@@ -197,12 +220,12 @@ const DetailedView = ({route, navigation}) => {
                   borderTopLeftRadius: 9,
                   borderBottomLeftRadius: 9,
                 }}>
-                <Text style={{color: style.colors.primary, fontWeight: '700'}}>
+                <Text style={{color: style.colors.primary, fontFamily:"Poppins-Light", fontSize:12,}}>
                   Project Name
                 </Text>
               </View>
               <TextInput
-                style={{flex: 1, fontSize: 16}}
+                style={{flex: 1, fontSize: 12,fontFamily:"Poppins-Light",color:style.colors.grey}}
                 value={data.name}
                 selectTextOnFocus={false}
                 editable={false}
@@ -231,12 +254,12 @@ const DetailedView = ({route, navigation}) => {
                   borderTopLeftRadius: 9,
                   borderBottomLeftRadius: 9,
                 }}>
-                <Text style={{color: style.colors.primary, fontWeight: '700'}}>
+                <Text style={{color: style.colors.primary,fontFamily:"Poppins-Light", fontSize:12}}>
                   Catagory
                 </Text>
               </View>
               <TextInput
-                style={{flex: 1, fontSize: 16}}
+                style={{flex: 1,fontFamily:"Poppins-Light", fontSize:12,color:style.colors.grey}}
                 value={data.category}
                 editable={false}
                 selectTextOnFocus={false}
@@ -265,12 +288,12 @@ const DetailedView = ({route, navigation}) => {
                   borderTopLeftRadius: 9,
                   borderBottomLeftRadius: 9,
                 }}>
-                <Text style={{color: style.colors.primary, fontWeight: '700'}}>
+                <Text style={{color: style.colors.primary,fontFamily:"Poppins-Light", fontSize:11}}>
                   Sub-Category
                 </Text>
               </View>
               <TextInput
-                style={{flex: 1, fontSize: 16}}
+                style={{flex: 1,fontFamily:"Poppins-Light", fontSize:12,color:style.colors.grey}}
 
                 // onChangeText={(text) => setMobile(text)}
                 // onFocus={()=>setFocus(true)}
@@ -296,12 +319,12 @@ const DetailedView = ({route, navigation}) => {
                   borderTopLeftRadius: 9,
                   borderBottomLeftRadius: 9,
                 }}>
-                <Text style={{color: style.colors.primary, fontWeight: '700'}}>
+                <Text style={{color: style.colors.primary,fontFamily:"Poppins-Light", fontSize:11}}>
                   Estimated Cost
                 </Text>
               </View>
               <TextInput
-                style={{flex: 1, fontSize: 16}}
+                style={{flex: 1, fontFamily:"Poppins-Light", fontSize:12,color:style.colors.grey}}
                 value={data.estimated.toString()}
                 editable={false}
                
@@ -329,12 +352,12 @@ const DetailedView = ({route, navigation}) => {
                   borderTopLeftRadius: 9,
                   borderBottomLeftRadius: 9,
                 }}>
-                <Text style={{color: style.colors.primary, fontWeight: '700'}}>
+                <Text style={{color: style.colors.primary,fontFamily:"Poppins-Light", fontSize:11}}>
                   Sanction Amnt.
                 </Text>
               </View>
               <TextInput
-                style={{flex: 1, fontSize: 16}}
+                style={{flex: 1, fontFamily:"Poppins-Light", fontSize:12, color:style.colors.grey}}
                 // onChangeText={(text) => setMobile(text)}
                 // onFocus={()=>setFocus(true)}
                 // onBlur={()=>setFocus(false)}
@@ -359,7 +382,7 @@ const DetailedView = ({route, navigation}) => {
               <Text
                 style={{
                   fontSize: 20,
-                  fontWeight: 'bold',
+                  fontFamily:'Poppins-Light',
                   color: style.colors.primary,
                 }}>
                 Take Photo
@@ -390,9 +413,9 @@ const DetailedView = ({route, navigation}) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 24,
+                    fontSize: 18,
                     textAlign: 'center',
-                    fontWeight: '900',
+                    fontFamily:'Poppins-Light',
                     color: style.colors.primary,
                   }}>
                   Image View
@@ -461,6 +484,7 @@ const DetailedView = ({route, navigation}) => {
             </>
           )}
           {/* .............................. */}
+          
 
           <View style={{height: 50}} />
           <View style={{marginBottom: 100}}>
@@ -476,11 +500,11 @@ const DetailedView = ({route, navigation}) => {
                 shadowRadius: 5.62,
                 elevation: 7,
                 backgroundColor: style.colors.lightAccent,
-                width: width / 1.5,
+                width: width / 2,
                 alignItems: 'center',
                 borderRadius: 15,
-                paddingHorizontal: 10,
-                paddingVertical: 15,
+                paddingHorizontal: 5,
+                paddingVertical: 10,
                 alignSelf: 'center',
                 bottom: 0,
               }}
@@ -490,18 +514,18 @@ const DetailedView = ({route, navigation}) => {
                 <Text
                   style={{
                     alignSelf: 'center',
-                    fontSize: 22,
+                    fontSize: 20,
                     color: style.colors.primary,
-                    fontWeight: '800',
+                    fontFamily:'Poppins-Light',
                     marginHorizontal: 10,
                   }}>
-                  Submit
+                  {loading ?<ActivityIndicator color={style.colors.primary}/>:`Submit`}
                 </Text>
-                <Ionicons
+                {loading ?'':<Ionicons
                   name="arrow-forward-circle"
                   color={'white'}
                   size={25}
-                />
+                />}
               </View>
             </TouchableOpacity>}
           </View>
@@ -531,7 +555,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: style.colors.primary,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily:'Poppins-Light'
   },
 });
 export default DetailedView;

@@ -58,29 +58,35 @@ const Dashboard = ({navigation, route}) => {
 
     
     <LinearGradient
-      style={{flex: 1, alignItems: 'center', paddingTop: 25}}
+      style={{flex: 1, alignItems: 'center',}}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       locations={[0, 1]}
       colors={[style.colors.secondary, style.colors.primary]}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={'-320'}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={'-100'}>
       <View
         style={{
           width: width,
+          paddingTop: 15,
           paddingHorizontal: 15,
           marginBottom: 15,
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent:'space-between'
+          justifyContent:'space-between',
+          borderBottomWidth:10,
+          zIndex:10,
+          backgroundColor:style.colors.primary,
+          borderBottomColor:style.colors.primary
+          
         }}>
         <View style={{flexDirection:'row', alignItems:'center', gap:5}}>
        
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
           <Image
             source={require('../../assets/logo.png')}
-            style={{height: 40, width: 35}}
+            style={{height: 50, width: 45}}
           />
-          <Text style={{color:style.colors.background, fontSize:22,textShadowColor:style.colors.grey,
+          <Text style={{color:style.colors.background,fontFamily:'Poppins-Bold', fontSize:22,textShadowColor:style.colors.grey,
             textShadowOffset: {
               width: 1,
               height: 1.3,
@@ -113,16 +119,16 @@ const Dashboard = ({navigation, route}) => {
             width: width - 20,
             marginBottom: 10,
             borderRadius:10,
-            backgroundColor:style.colors.lightAccent,
+            // backgroundColor:style.colors.lightAccent,
           }}>
             <View>
               <Text
                 style={{
                   textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '700',
+                  fontFamily:'Poppins-Light',
+                  fontSize: 14,
                   marginBottom: 10,
-                  color: style.colors.primary,
+                  color: style.colors.lightAccent,
                 }}>
                 Welcome {userDetail?.name}
               </Text>
@@ -134,13 +140,13 @@ const Dashboard = ({navigation, route}) => {
                 gap: 3,
                 alignSelf: 'flex-start',
               }}>
-              <Ionicons name="location" color={style.colors.primary} size={16} />
+              <Ionicons name="location" color={style.colors.lightAccent} size={16} />
               <Text
                 style={{
                   textAlign: 'center',
                   fontSize: 14,
-                  fontWeight: '500',
-                  color: style.colors.primary,
+                  fontFamily:'Poppins-Light',
+                  color: style.colors.lightAccent,
                 }}>{`${userDetail?.block}`}</Text>
             
             </View>
@@ -170,7 +176,7 @@ const Dashboard = ({navigation, route}) => {
                     flex: 0.5,
                     flexDirection: 'row',
                     width: width - 20,
-                    height: height / 8,
+                    height: height / 7,
                     borderRadius: 20,
                     justifyContent: 'center',
                     alignItems:'center',
@@ -195,39 +201,38 @@ const Dashboard = ({navigation, route}) => {
                     <Text
                       style={{
                         width: width - 150,
-                        textAlign: 'justify',
                         paddingHorizontal: 5,
-                        fontWeight: 'bold',
+                        fontFamily:'Poppins-Light',
                         color: style.colors.lightAccent,
                       }}>
                       Project Name:{' '}
-                      <Text style={{color: style.colors.grey}}>
+                      <Text style={{color: style.colors.grey,fontFamily:'Poppins-Light',}}>
                         {project?.name}
                       </Text>
                     </Text>
                     <Text
                       style={{
                         width: width - 150,
-                        textAlign: 'justify',
+                        fontFamily:'Poppins-Light',
+                        fontSize:12,
                         paddingHorizontal: 5,
-                        fontWeight: 'bold',
                         color: style.colors.lightAccent,
                       }}>
                       Category:{' '}
-                      <Text style={{color: style.colors.grey}}>
+                      <Text style={{color: style.colors.grey,fontFamily:'Poppins-Light',fontSize:12,}}>
                         {project?.category}
                       </Text>
                     </Text>
                     <Text
                       style={{
                         width: width - 150,
-                        textAlign: 'justify',
+                        fontFamily:'Poppins-Light',
+                        fontSize:12,
                         paddingHorizontal: 5,
-                        fontWeight: 'bold',
                         color: style.colors.lightAccent,
                       }}>
                       Estimation:{' '}
-                      <Text style={{color: style.colors.grey}}>
+                      <Text style={{color: style.colors.grey,fontFamily:'Poppins-Light',fontSize:12,}}>
                       ₹{project?.estimated}
                       </Text>
                     </Text>
@@ -263,9 +268,10 @@ const Dashboard = ({navigation, route}) => {
                 <Text
                   style={{
                     alignSelf: 'center',
-                    fontSize: 16,
+                    fontSize: 12,
+                    fontFamily:'Poppins-Light',
                     color: style.colors.primary,
-                    fontWeight: '800',
+                    
                     marginHorizontal: 10,
                   }}>
                   Show more

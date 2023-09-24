@@ -61,13 +61,13 @@ export const BeforeInitiation = ({projectDetails,navigation}) => {
                     style={{width: 82, height: 85}}></Image>
                 </View>
                 <View style={{gap: 3, width: 130}}>
-                  <Text style={{color: style.colors.grey}}>
+                  <Text style={{color: style.colors.grey,fontFamily:'Poppins-Light',fontSize:14}}>
                     {project?.name}
                   </Text>
-                  <Text style={{color: style.colors.background}}>
+                  <Text style={{color: style.colors.background,fontFamily:'Poppins-Light',fontSize:12}}>
                   ₹{project?.estimated}
                   </Text>
-                  <Text style={{color: style.colors.grey}}>
+                  <Text style={{color: style.colors.grey,fontFamily:'Poppins-Light',fontSize:12}}>
                     {project?.category}
                   </Text>
                 </View>
@@ -85,7 +85,7 @@ export const BeforeInitiation = ({projectDetails,navigation}) => {
                     //   backgroundColor: style.colors.lightAccent,
                      marginTop:20
                     }}>
-                    <Text style={{color: style.colors.lightAccent, fontSize:12}}>Update Status</Text>
+                    <Text style={{color: style.colors.lightAccent, fontFamily:'Poppins-Light',fontSize:8}}>Update Status</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -149,15 +149,16 @@ const TabNav = ({projectDetails,navigation}) => {
                 style={{flexDirection: 'row', gap: 4, alignItems: 'center'}}>
                 <Ionicons
                   size={20}
-                  color={focused ? 'cyan' : '#ccc'}
+                  color={focused ? 'cyan' : '#fff'}
                   name="shield-checkmark-sharp"
                 />
                 <Text
                   style={{
-                    color: `${focused ? '#fff' : '#ccc'}`,
-                    fontWeight: '600',
+                    color: `${focused ? '#fff' : '#fff'}`,
                     letterSpacing: 0.2,
-                    fontSize: 12,
+                    fontSize: 10,
+                    fontFamily:'Poppins-Light',
+                    fontWeight:'700',
                     marginRight:3
                   }}>
                   Before Initiatition   
@@ -177,15 +178,16 @@ const TabNav = ({projectDetails,navigation}) => {
                 style={{flexDirection: 'row', gap: 4, alignItems: 'center'}}>
                 <MaterialIcons
                   size={20}
-                  color={focused ? '#c264ff' : '#ccc'}
+                  color={focused ? '#c264ff' : '#fff'}
                   name="pending"
                 />
                 <Text
                   style={{
-                    color: `${focused ? '#fff' : '#ccc'}`,
-                    fontWeight: '600',
+                    color: `${focused ? '#fff' : '#fff'}`,
+                    fontWeight: '700',
                     letterSpacing: 0.2,
-                    fontSize: 12,
+                    fontSize: 10,
+                    fontFamily:'Poppins-Light'
                   }}>
                   During Execution 
                 </Text>
@@ -204,15 +206,16 @@ const TabNav = ({projectDetails,navigation}) => {
                 style={{flexDirection: 'row', gap: 4, alignItems: 'center'}}>
                 <Entypo
                   size={20}
-                  color={focused ? 'tomato' : '#ccc'}
+                  color={focused ? 'tomato' : '#fff'}
                   name="archive"
                 />
                 <Text
                   style={{
-                    color: `${focused ? '#fff' : '#ccc'}`,
-                    fontWeight: '600',
+                    color: `${focused ? '#fff' : '#fff'}`,
+                    fontWeight: '700',
                     letterSpacing: 0.2,
-                    fontSize: 12,
+                    fontSize: 10,
+                    fontFamily:'Poppins-Light'
                   }}>
                   Completion
                 </Text>

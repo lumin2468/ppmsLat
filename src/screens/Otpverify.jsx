@@ -110,7 +110,7 @@ const OtpVerify = ({navigation, route}) => {
     <Pressable style={{alignItems:'center'}} onPress={()=>Keyboard.dismiss()}>
     <View style={{alignItems:'center', justifyContent:'flex-start', paddingTop:50, paddingBottom:30}}>
       <Image source={require('../../assets/logo.png')} style={{height:120, width:110}} />
-      <Text style={{paddingVertical:10, fontSize:22,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.primary, fontWeight:700, textShadowColor:'#000000',textShadowRadius:12}}>Panchayati Raj Project Management System</Text>
+      <Text style={{paddingVertical:10,fontFamily:"Poppins-ExtraBold", fontSize:18,paddingHorizontal:15,textAlign:'center',letterSpacing:0, color:style.colors.lightAccent, fontWeight:'900'}}>Panchayati Raj Project Management System</Text>
       </View>
       <Text style={styles.title}>Enter Code</Text>
       <Text style={styles.subTitle}>{`A five digit code has been sent to \n `}<Text style={[styles.subTitle,{color:style.colors.lightAccent}]}>{`+91-******${(mobile.slice(6))}`}</Text></Text>
@@ -153,7 +153,7 @@ const OtpVerify = ({navigation, route}) => {
         ) : (
           <Pressable style={styles.linkButton} onPress={handleResend}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Text style={{fontSize:12, color:'gray'}}>Didn't receive code?</Text>
+            <Text style={{fontSize:12,fontFamily:'Poppins-Light', color:'gray'}}>Didn't receive code?</Text>
             <Text style={styles.linkText}> Resend OTP</Text>
             </View>
            
@@ -211,7 +211,7 @@ const OtpVerify = ({navigation, route}) => {
           
           }} >
             <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Text style={{alignSelf:'center', fontSize:22, color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Verify</Text>
+            <Text style={{alignSelf:'center', fontSize:18,fontFamily:'Poppins-Light', color:style.colors.primary, fontWeight:'800', marginHorizontal:10}}>Verify</Text>
             <Ionicons name='arrow-forward-circle' color={'white'} size={25} />
             </View>
             
@@ -237,9 +237,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '500',
-    letterSpacing:1,
+    fontFamily:'Poppins-Bold',
+    letterSpacing:0.6,
     color:style.colors.lightAccent,
-    marginBottom: 15,
     textDecorationLine:'underline',
     textDecorationColor:style.colors.grey,
    
@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     color:style.colors.grey,
     letterSpacing:0.3,
     textAlign: 'center',
+    fontFamily:'Poppins-Italic'
   },
   inputContainer: {
     flexDirection: 'row',
@@ -267,6 +268,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     fontSize: 20,
+    fontFamily:'Poppins-Light',
     textAlign: 'center',
     
   },
@@ -297,13 +299,13 @@ const styles = StyleSheet.create({
   linkText: {
     color: style.colors.lightAccent,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily:'Poppins-Light',
     textDecorationLine: 'underline',
   },
   linkText2: {
     color: style.colors.primary,
     fontSize: 12,
-    fontWeight: 'bold',
+    fontFamily:'Poppins-Light',
     borderWidth: 1,
     borderColor:style.colors.primary,
     borderRadius:5,
